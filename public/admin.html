@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | NutriApprove</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page admin-page">
+    <header class="topbar">
+      <a class="brand-row" href="index.html">
+        <span class="brand-mark">N</span>
+        <span class="brand-name">NutriApprove</span>
+      </a>
+
+      <nav class="nav-actions" aria-label="Navegação principal">
+        <a class="text-button" href="ajuda.html">Ajuda</a>
+        <a class="secondary-button" href="login.html">Login Nutricionista</a>
+        <a class="button" href="cadastro.html">Cadastro</a>
+      </nav>
+    </header>
+
+    <section class="hero admin-hero">
+      <p class="typing-line">Controle operacional da plataforma</p>
+      <h1>Painel administrativo</h1>
+      <p class="subtitle">
+        Aprove, desaprove e acompanhe os cadastros de nutricionistas. SUPORTE responde chamados,
+        e o ADMIN MASTER gerencia cargos e visualiza detalhes técnicos do servidor.
+      </p>
+    </section>
+
+    <section class="form-panel" id="adminLoginPanel" aria-labelledby="admin-login-title">
+      <h2 id="admin-login-title">Login administrativo</h2>
+      <p class="section-description">Use a chave de acesso e senha da sua conta admin.</p>
+
+      <form id="adminLoginForm" novalidate>
+        <div class="form-grid">
+          <div class="field full">
+            <label for="adminAccessKey">Chave de acesso</label>
+            <input id="adminAccessKey" name="adminAccessKey" type="text" placeholder="ADMIN MASTER, ADMIN ou SUPORTE">
+            <span class="error-message" id="adminAccessKeyError"></span>
+          </div>
+
+          <div class="field full">
+            <label for="adminPassword">Senha</label>
+            <input id="adminPassword" name="adminPassword" type="password" placeholder="Senha administrativa">
+            <span class="error-message" id="adminPasswordError"></span>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <p class="small-note">
+            Contas de teste já criadas: ADMIN MASTER / master123 · ADMIN / admin123 · SUPORTE / suporte123.
+          </p>
+          <button class="button" type="submit">Entrar no admin</button>
+        </div>
+      </form>
+
+      <p class="feedback" id="adminLoginFeedback" aria-live="polite"></p>
+    </section>
+
+    <section class="admin-shell is-hidden" id="adminDashboard" aria-label="Dashboard administrativo">
+      <div class="admin-toolbar">
+        <div>
+          <h2 id="adminWelcome">Dashboard</h2>
+          <p class="section-description" id="adminRoleText">Sessão administrativa ativa.</p>
+        </div>
+
+        <div class="nav-actions">
+          <button class="secondary-button" id="refreshAdminButton" type="button">Atualizar</button>
+          <button class="text-button" id="adminLogoutButton" type="button">Sair</button>
+        </div>
+      </div>
+
+      <section class="stats-grid" aria-label="Resumo dos cadastros">
+        <article class="stat-tile">
+          <span class="stat-label">Total</span>
+          <strong id="statTotal">0</strong>
+          <span class="stat-help">cadastros recebidos</span>
+        </article>
+        <article class="stat-tile">
+          <span class="stat-label">Pendentes</span>
+          <strong id="statPending">0</strong>
+          <span class="stat-help">aguardando análise</span>
+        </article>
+        <article class="stat-tile">
+          <span class="stat-label">Aprovados</span>
+          <strong id="statApproved">0</strong>
+          <span class="stat-help">com login liberado</span>
+        </article>
+        <article class="stat-tile">
+          <span class="stat-label">Desaprovados</span>
+          <strong id="statRejected">0</strong>
+          <span class="stat-help">com acesso bloqueado</span>
+        </article>
+        <article class="stat-tile">
+          <span class="stat-label">Chamados</span>
+          <strong id="statOpenTickets">0</strong>
+          <span class="stat-help">em aberto no suporte</span>
+        </article>
+      </section>
+
+      <section class="admin-section" id="nutritionistsSection" aria-labelledby="nutritionists-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="nutritionists-title">Cadastros de nutricionistas</h2>
+            <p class="section-description">ADMIN pode aprovar, desaprovar e registrar contato com o cliente.</p>
+          </div>
+          <span class="pill" id="contactedCount">0 contatos</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>CRN</th>
+                <th>E-mail</th>
+                <th>Status</th>
+                <th>Suporte</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="nutritionistsTable">
+              <tr>
+                <td colspan="6">Carregando cadastros...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-section is-hidden" id="supportSection" aria-labelledby="support-tickets-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="support-tickets-title">Chamados de suporte</h2>
+            <p class="section-description">SUPORTE responde e encaminha. ADMIN MASTER também pode responder diretamente.</p>
+          </div>
+          <span class="pill" id="ticketCount">0 chamados</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Solicitante</th>
+                <th>Assunto</th>
+                <th>Mensagem</th>
+                <th>Responsável</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="supportMessagesTable">
+              <tr>
+                <td colspan="6">Carregando chamados...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-section master-only is-hidden" id="masterArea" aria-labelledby="master-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="master-title">Área ADMIN MASTER</h2>
+            <p class="section-description">Controle de cargos, servidor e banco de dados local.</p>
+          </div>
+          <span class="pill master">Acesso total</span>
+        </div>
+
+        <div class="master-grid">
+          <div class="server-box">
+            <h3>Servidor e banco</h3>
+            <dl class="details-list">
+              <div>
+                <dt>Arquivo do banco</dt>
+                <dd id="serverDatabaseFile">-</dd>
+              </div>
+              <div>
+                <dt>Tamanho do banco</dt>
+                <dd id="serverDatabaseSize">-</dd>
+              </div>
+              <div>
+                <dt>Python</dt>
+                <dd id="serverPythonVersion">-</dd>
+              </div>
+              <div>
+                <dt>Tempo online</dt>
+                <dd id="serverUptime">-</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="server-box">
+            <h3>Administradores</h3>
+            <div id="adminsList" class="admin-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <p class="feedback" id="adminFeedback" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <div class="modal-backdrop is-hidden" id="adminActionModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-panel">
+      <h2 id="modalTitle">Registrar ação</h2>
+      <p class="section-description" id="modalDescription">Informe os detalhes da ação.</p>
+
+      <label for="modalText">Observação</label>
+      <textarea id="modalText" rows="5"></textarea>
+      <span class="error-message" id="modalTextError"></span>
+
+      <div class="modal-actions">
+        <button class="secondary-button" id="modalCancelButton" type="button">Cancelar</button>
+        <button class="button" id="modalConfirmButton" type="button">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
