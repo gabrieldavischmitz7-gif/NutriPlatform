@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | NutriApprove</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="brand-row" href="index.html">
+        <span class="brand-mark">N</span>
+        <span class="brand-name">NutriApprove</span>
+      </a>
+
+      <nav class="nav-actions" aria-label="Navegação principal">
+        <a class="secondary-button" href="cadastro.html">Cadastro</a>
+        <a class="text-button" href="admin.html">Admin</a>
+        <a class="text-button" href="ajuda.html">Ajuda</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Login</h1>
+      <p class="subtitle">Entre com seu CRN e senha cadastrados.</p>
+    </section>
+
+    <section class="form-panel" aria-labelledby="login-title">
+      <h2 id="login-title">Acesso do nutricionista</h2>
+      <p class="section-description">O acesso depende da aprovação do administrador.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="form-grid">
+          <div class="field full">
+            <label for="loginCrn">CRN</label>
+            <input id="loginCrn" name="loginCrn" type="text" placeholder="Ex.: 12345">
+            <span class="error-message" id="loginCrnError"></span>
+          </div>
+
+          <div class="field full">
+            <label for="loginPassword">Senha</label>
+            <input id="loginPassword" name="loginPassword" type="password" placeholder="Sua senha">
+            <span class="error-message" id="loginPasswordError"></span>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <a class="forgot-password" href="#">Esqueceu a senha?</a>
+          <button class="button" type="submit">Entrar</button>
+        </div>
+      </form>
+
+      <p class="feedback" id="loginFeedback" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

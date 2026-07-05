@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro | NutriApprove</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="brand-row" href="index.html">
+        <span class="brand-mark">N</span>
+        <span class="brand-name">NutriApprove</span>
+      </a>
+
+      <nav class="nav-actions" aria-label="Navegação principal">
+        <a class="secondary-button" href="login.html">Login</a>
+        <a class="text-button" href="admin.html">Admin</a>
+        <a class="text-button" href="ajuda.html">Ajuda</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Cadastro de nutricionistas</h1>
+      <p class="subtitle">
+        Preencha seus dados profissionais. O cadastro será analisado por um administrador
+        antes da liberação do acesso.
+      </p>
+    </section>
+
+    <section class="form-panel" aria-labelledby="register-title">
+      <div class="notice">
+        <span>Este cadastro será salvo no banco SQLite local com status pendente.</span>
+      </div>
+
+      <h2 id="register-title">Dados profissionais</h2>
+      <p class="section-description">Todos os campos são obrigatórios.</p>
+
+      <form id="registerForm" novalidate>
+        <div class="form-grid">
+          <div class="field full">
+            <label for="name">Nome completo</label>
+            <input id="name" name="name" type="text" placeholder="Ex.: Ana Carolina Mendes">
+            <span class="error-message" id="nameError"></span>
+          </div>
+
+          <div class="field">
+            <label for="cpf">CPF</label>
+            <input id="cpf" name="cpf" type="text" placeholder="000.000.000-00">
+            <span class="error-message" id="cpfError"></span>
+          </div>
+
+          <div class="field">
+            <label for="birthDate">Data de nascimento</label>
+            <input id="birthDate" name="birthDate" type="date">
+            <span class="error-message" id="birthDateError"></span>
+          </div>
+
+          <div class="field">
+            <label for="crn">CRN</label>
+            <input id="crn" name="crn" type="text" placeholder="Ex.: 12345">
+            <span class="error-message" id="crnError"></span>
+          </div>
+
+          <div class="field">
+            <label for="crnRegion">Região do CRN</label>
+            <select id="crnRegion" name="crnRegion">
+              <option value="">Selecione a região</option>
+              <option value="CRN-1">CRN-1</option>
+              <option value="CRN-2">CRN-2</option>
+              <option value="CRN-3">CRN-3</option>
+              <option value="CRN-4">CRN-4</option>
+              <option value="CRN-5">CRN-5</option>
+              <option value="CRN-6">CRN-6</option>
+            </select>
+            <span class="error-message" id="crnRegionError"></span>
+          </div>
+
+          <div class="field full">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" placeholder="voce@email.com">
+            <span class="error-message" id="emailError"></span>
+          </div>
+
+          <div class="field full">
+            <label for="password">Senha</label>
+            <div class="password-wrap">
+              <input id="password" name="password" type="password" placeholder="Crie uma senha">
+              <button class="toggle-password" id="togglePassword" type="button">Mostrar</button>
+            </div>
+            <span class="error-message" id="passwordError"></span>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <p class="small-note">Depois do envio, aguarde a aprovação manual.</p>
+          <button class="button" type="submit">Enviar cadastro</button>
+        </div>
+      </form>
+
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

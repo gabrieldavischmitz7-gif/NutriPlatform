@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajuda | NutriApprove</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="brand-row" href="index.html">
+        <span class="brand-mark">N</span>
+        <span class="brand-name">NutriApprove</span>
+      </a>
+
+      <nav class="nav-actions" aria-label="Navegação principal">
+        <a class="secondary-button" href="login.html">Login</a>
+        <a class="text-button" href="admin.html">Admin</a>
+        <a class="button" href="cadastro.html">Cadastro</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <p class="typing-line">Precisa de ajuda com sua conta?</p>
+      <h1>Fale com o suporte</h1>
+      <p class="subtitle">
+        Problemas com login, senha, e-mail ou dados do CRN? Envie sua mensagem
+        que nossa equipe de suporte vai analisar e responder.
+      </p>
+    </section>
+
+    <section class="form-panel" aria-labelledby="support-title">
+      <div class="notice">
+        <span>Seu chamado é registrado com histórico completo e encaminhado ao setor responsável.</span>
+      </div>
+
+      <h2 id="support-title">Enviar mensagem ao suporte</h2>
+      <p class="section-description">Preencha os campos abaixo com o máximo de detalhes possível.</p>
+
+      <form id="supportForm" novalidate>
+        <div class="form-grid">
+          <div class="field full">
+            <label for="supportName">Nome</label>
+            <input id="supportName" name="supportName" type="text" placeholder="Seu nome completo">
+            <span class="error-message" id="supportNameError"></span>
+          </div>
+
+          <div class="field full">
+            <label for="supportEmail">E-mail</label>
+            <input id="supportEmail" name="supportEmail" type="email" placeholder="voce@email.com">
+            <span class="error-message" id="supportEmailError"></span>
+          </div>
+
+          <div class="field full">
+            <label for="supportSubject">Assunto</label>
+            <select id="supportSubject" name="supportSubject">
+              <option value="Problema de login">Problema de login</option>
+              <option value="Problema de senha">Problema de senha</option>
+              <option value="Problema de e-mail cadastrado">Problema de e-mail cadastrado</option>
+              <option value="Dúvida sobre o CRN">Dúvida sobre o CRN</option>
+              <option value="Recuperar conta">Recuperar conta</option>
+              <option value="Outro assunto">Outro assunto</option>
+            </select>
+            <span class="error-message" id="supportSubjectError"></span>
+          </div>
+
+          <div class="field full">
+            <label for="supportMessage">Mensagem</label>
+            <textarea id="supportMessage" name="supportMessage" placeholder="Descreva o que está acontecendo..."></textarea>
+            <span class="error-message" id="supportMessageError"></span>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <p class="small-note">Nossa equipe normalmente responde em até 1 dia útil.</p>
+          <button class="button" type="submit">Enviar mensagem</button>
+        </div>
+      </form>
+
+      <p class="feedback" id="supportFeedback" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
