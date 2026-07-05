@@ -112,6 +112,34 @@ function openAdminActionModal(options) {
   });
 }
 
+function openGenericModal(title, message) {
+  const modal = document.getElementById("genericModal");
+  if (!modal) return;
+
+  const modalTitle = document.getElementById("genericModalTitle");
+  const modalContent = document.getElementById("genericModalContent");
+  const closeButton = document.getElementById("genericModalClose");
+
+  if (modalTitle) modalTitle.textContent = title;
+  if (modalContent) modalContent.innerHTML = `<p>${escapeHtml(message)}</p>`;
+  modal.classList.remove("is-hidden");
+
+  function closeModal() {
+    modal.classList.add("is-hidden");
+    closeButton.removeEventListener("click", closeModal);
+    modal.removeEventListener("click", handleBackdrop);
+  }
+
+  function handleBackdrop(event) {
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+
+  closeButton.addEventListener("click", closeModal);
+  modal.addEventListener("click", handleBackdrop);
+}
+
 async function sendJson(url, data, options = {}) {
   const headers = {
     "Content-Type": "application/json"
@@ -712,6 +740,7 @@ function setupDashboard() {
   }
 
   setupDashboardNavigation();
+  setupDashboardActions();
   loadDashboardData();
 }
 
@@ -753,6 +782,52 @@ function setupDashboardNavigation() {
   const refreshButton = document.getElementById("refreshButton");
   if (refreshButton) {
     refreshButton.addEventListener("click", loadDashboardData);
+  }
+}
+
+function setupDashboardActions() {
+  // Botões de ação rápida do dashboard
+  const newPatientButtons = document.querySelectorAll('[data-action="new-patient"]');
+  const newFoodButtons = document.querySelectorAll('[data-action="new-food"]');
+  const newConsultButtons = document.querySelectorAll('[data-action="new-consult"]');
+  const newPatientPageButton = document.getElementById("newPatientButton");
+  const newFoodPageButton = document.getElementById("newFoodButton");
+  const newConsultPageButton = document.getElementById("newConsultButton");
+
+  newPatientButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      openGenericModal("Novo paciente", "Funcionalidade em desenvolvimento. Em breve você poderá adicionar novos pacientes aqui.");
+    });
+  });
+
+  newFoodButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      openGenericModal("Novo alimento", "Funcionalidade em desenvolvimento. Em breve você poderá adicionar alimentos ao banco de dados.");
+    });
+  });
+
+  newConsultButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      openGenericModal("Agendar consulta", "Funcionalidade em desenvolvimento. Em breve você poderá agendar consultas com seus pacientes.");
+    });
+  });
+
+  if (newPatientPageButton) {
+    newPatientPageButton.addEventListener("click", () => {
+      openGenericModal("Novo paciente", "Funcionalidade em desenvolvimento. Em breve você poderá adicionar novos pacientes aqui.");
+    });
+  }
+
+  if (newFoodPageButton) {
+    newFoodPageButton.addEventListener("click", () => {
+      openGenericModal("Novo alimento", "Funcionalidade em desenvolvimento. Em breve você poderá adicionar alimentos ao banco de dados.");
+    });
+  }
+
+  if (newConsultPageButton) {
+    newConsultPageButton.addEventListener("click", () => {
+      openGenericModal("Agendar consulta", "Funcionalidade em desenvolvimento. Em breve você poderá agendar consultas com seus pacientes.");
+    });
   }
 }
 
