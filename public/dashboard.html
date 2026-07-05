@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | NutriApprove</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="dashboard-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Menu de navegação">
+      <div class="sidebar-header">
+        <a class="sidebar-brand" href="dashboard.html">
+          <span class="brand-mark">N</span>
+          <span class="brand-name">NutriApprove</span>
+        </a>
+        <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Alternar menu">
+          ☰
+        </button>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Menu principal">
+        <a class="nav-item active" href="#" data-section="dashboard" aria-current="page">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a class="nav-item" href="#" data-section="patients" aria-current="false">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label">Pacientes</span>
+        </a>
+        <a class="nav-item" href="#" data-section="foods" aria-current="false">
+          <span class="nav-icon">🍎</span>
+          <span class="nav-label">Banco de Alimentos</span>
+        </a>
+        <a class="nav-item" href="#" data-section="agenda" aria-current="false">
+          <span class="nav-icon">📅</span>
+          <span class="nav-label">Agenda</span>
+        </a>
+        <a class="nav-item" href="#" data-section="messages" aria-current="false">
+          <span class="nav-icon">💬</span>
+          <span class="nav-label">Mensagens</span>
+        </a>
+        <a class="nav-item" href="#" data-section="notifications" aria-current="false">
+          <span class="nav-icon">🔔</span>
+          <span class="nav-label">Notificações</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="nav-item" href="ajuda.html" target="_blank">
+          <span class="nav-icon">❓</span>
+          <span class="nav-label">Ajuda</span>
+        </a>
+        <button class="nav-item logout" id="logoutButton" type="button">
+          <span class="nav-icon">🚪</span>
+          <span class="nav-label">Sair</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="dashboard-main">
+      <header class="dashboard-header">
+        <div>
+          <h1 id="welcomeText">Carregando...</h1>
+          <p class="section-description" id="userRole">Aguarde...</p>
+        </div>
+        <div class="header-actions">
+          <button class="text-button" id="refreshButton" type="button">🔄 Atualizar</button>
+        </div>
+      </header>
+
+      <!-- DASHBOARD SECTION -->
+      <section class="dashboard-section" id="dashboardSection" aria-labelledby="dashboard-title">
+        <div class="section-header">
+          <h2 id="dashboard-title">Resumo da conta</h2>
+          <p class="section-description">Visão geral de seus pacientes e atividades.</p>
+        </div>
+
+        <div class="stats-grid" aria-label="Estatísticas principais">
+          <article class="stat-tile">
+            <span class="stat-label">Total</span>
+            <strong id="statTotalPatients">0</strong>
+            <span class="stat-help">pacientes cadastrados</span>
+          </article>
+          <article class="stat-tile">
+            <span class="stat-label">Em andamento</span>
+            <strong id="statActivePatients">0</strong>
+            <span class="stat-help">acompanhamentos ativos</span>
+          </article>
+          <article class="stat-tile">
+            <span class="stat-label">Consultas</span>
+            <strong id="statUpcomingConsults">0</strong>
+            <span class="stat-help">próximas 7 dias</span>
+          </article>
+          <article class="stat-tile">
+            <span class="stat-label">Mensagens</span>
+            <strong id="statUnreadMessages">0</strong>
+            <span class="stat-help">não lidas</span>
+          </article>
+        </div>
+
+        <div class="dashboard-content-grid">
+          <section class="card" aria-labelledby="quick-actions-title">
+            <h3 id="quick-actions-title">Ações rápidas</h3>
+            <div class="action-list">
+              <button class="action-button" data-action="new-patient" type="button">
+                <span class="action-icon">➕</span>
+                <span>Novo paciente</span>
+              </button>
+              <button class="action-button" data-action="new-food" type="button">
+                <span class="action-icon">➕</span>
+                <span>Novo alimento</span>
+              </button>
+              <button class="action-button" data-action="new-consult" type="button">
+                <span class="action-icon">➕</span>
+                <span>Agendar consulta</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="recent-patients-title">
+            <h3 id="recent-patients-title">Pacientes recentes</h3>
+            <div id="recentPatientsList" class="list-placeholder">
+              Nenhum paciente cadastrado ainda.
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- PATIENTS SECTION -->
+      <section class="dashboard-section is-hidden" id="patientsSection" aria-labelledby="patients-title">
+        <div class="section-header">
+          <h2 id="patients-title">Gerenciamento de pacientes</h2>
+          <p class="section-description">Cadastre, acompanhe e gerencie seus pacientes.</p>
+        </div>
+
+        <div class="section-toolbar">
+          <input type="text" id="patientSearch" placeholder="Buscar paciente..." class="search-input">
+          <select id="patientCategoryFilter" class="filter-select">
+            <option value="">Todas as categorias</option>
+            <option value="weight-loss">Emagrecimento</option>
+            <option value="muscle-gain">Ganho de Massa</option>
+            <option value="hypertrophy">Hipertrofia</option>
+            <option value="health">Saúde</option>
+            <option value="maintenance">Manutenção</option>
+            <option value="reeducation">Reeducação Alimentar</option>
+            <option value="competition">Preparação para Competições</option>
+            <option value="sports">Esportivo</option>
+            <option value="children">Infantil</option>
+            <option value="elderly">Idosos</option>
+          </select>
+          <button class="button" id="newPatientButton" type="button">➕ Novo paciente</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Status</th>
+                <th>Última atualização</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="patientsTable">
+              <tr>
+                <td colspan="5">Nenhum paciente cadastrado ainda.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FOODS SECTION -->
+      <section class="dashboard-section is-hidden" id="foodsSection" aria-labelledby="foods-title">
+        <div class="section-header">
+          <h2 id="foods-title">Banco de alimentos</h2>
+          <p class="section-description">Gerencie sua biblioteca de alimentos com macros e micronutrientes.</p>
+        </div>
+
+        <div class="section-toolbar">
+          <input type="text" id="foodSearch" placeholder="Buscar alimento..." class="search-input">
+          <button class="button" id="newFoodButton" type="button">➕ Novo alimento</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Porção</th>
+                <th>Calorias</th>
+                <th>Proteína</th>
+                <th>Carboidratos</th>
+                <th>Gordura</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="foodsTable">
+              <tr>
+                <td colspan="7">Nenhum alimento cadastrado ainda.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- AGENDA SECTION -->
+      <section class="dashboard-section is-hidden" id="agendaSection" aria-labelledby="agenda-title">
+        <div class="section-header">
+          <h2 id="agenda-title">Agenda de consultas</h2>
+          <p class="section-description">Gerencie suas consultas, retornos e lembretes.</p>
+        </div>
+
+        <div class="section-toolbar">
+          <button class="button" id="newConsultButton" type="button">➕ Nova consulta</button>
+        </div>
+
+        <div class="agenda-calendar" id="agendaCalendar">
+          <!-- Calendar será renderizado aqui -->
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Paciente</th>
+                <th>Data/Hora</th>
+                <th>Tipo</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="consultsTable">
+              <tr>
+                <td colspan="5">Nenhuma consulta agendada.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MESSAGES SECTION -->
+      <section class="dashboard-section is-hidden" id="messagesSection" aria-labelledby="messages-title">
+        <div class="section-header">
+          <h2 id="messages-title">Mensagens</h2>
+          <p class="section-description">Converse com seus pacientes.</p>
+        </div>
+
+        <div class="messages-container">
+          <div class="messages-list" id="messagesList">
+            <p class="list-placeholder">Nenhuma conversa iniciada.</p>
+          </div>
+          <div class="message-thread is-hidden" id="messageThread">
+            <div class="thread-header">
+              <button class="text-button" id="backToList" type="button">← Voltar</button>
+              <h3 id="threadTitle">Conversa</h3>
+            </div>
+            <div class="thread-messages" id="threadMessages"></div>
+            <div class="thread-input">
+              <textarea id="messageInput" placeholder="Digite sua mensagem..." rows="3"></textarea>
+              <button class="button" id="sendMessageButton" type="button">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTIFICATIONS SECTION -->
+      <section class="dashboard-section is-hidden" id="notificationsSection" aria-labelledby="notifications-title">
+        <div class="section-header">
+          <h2 id="notifications-title">Central de notificações</h2>
+          <p class="section-description">Acompanhe eventos e atualizações dos seus pacientes.</p>
+        </div>
+
+        <div class="notifications-list" id="notificationsList">
+          <p class="list-placeholder">Nenhuma notificação no momento.</p>
+        </div>
+      </section>
+
+      <p class="feedback" id="dashboardFeedback" aria-live="polite"></p>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
